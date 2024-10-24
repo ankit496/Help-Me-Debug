@@ -25,7 +25,7 @@ export const GET = async (request, { params }) => {
             });
         return NextResponse.json({ success: true, posts, message: "Successfully fetched the post" });
     } catch (err) {
-        throw new Error("Failed to fetch posts!");
+        throw new Error(err);
     }
 }
 

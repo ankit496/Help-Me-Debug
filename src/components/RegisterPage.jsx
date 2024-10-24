@@ -35,7 +35,7 @@ const RegisterPage = () => {
             }
             //console.log("Registration successful", response);
         } catch (error) {
-            console.error("Registration error", error);
+            throw new Error(error)
         }
     };
 

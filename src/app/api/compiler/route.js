@@ -22,7 +22,7 @@ export const POST = async (request, { params }) => {
         const data = await response.json();  // Parse the JSON response
         return new Response(JSON.stringify(data), { status: 200 });  // Return the response with a 200 status
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });  // Return error with a 500 status
     }
 };

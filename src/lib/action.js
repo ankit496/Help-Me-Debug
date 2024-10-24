@@ -33,7 +33,7 @@ export const register = async (formData) => {
         await newUser.save();
         return { success: true };
     } catch (err) {
-        console.error("Error saving user:", err);
+        // console.error("Error saving user:", err);
         return { error: "Something went wrong!" };
     }
 };
@@ -62,7 +62,7 @@ export const fetchIssue = async (field, page = 1, sortType) => {
         const data = await res.json();
         return data;
     } catch (error) {
-        throw new Error("Error occurred while fetching issues");
+        throw new Error(error);
     }
 };
 
