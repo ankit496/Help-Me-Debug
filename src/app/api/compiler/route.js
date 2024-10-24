@@ -3,7 +3,7 @@ export const POST = async (request, { params }) => {
 
     // Get the request body as JSON
     const body = await request.json();  // Use await to resolve the promise
-    console.log("Request Body:", body); // Log the request body for debugging
+    //console.log("Request Body:", body); // Log the request body for debugging
 
     try {
         const response = await fetch(endpoint, {

@@ -51,7 +51,7 @@ const handler=NextAuth({
             connectDB()
             try{
                 const findUser=await User.findOne({email:user.email})
-                console.log(user)
+                //console.log(user)
                 if(!findUser){
                     const newUser=await User.create({
                         email:user.email,

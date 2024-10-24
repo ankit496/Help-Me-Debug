@@ -19,7 +19,7 @@ function IssueComponent() {
         data.userId = session.user.id
         try {
             const response = await raiseIssue(data);
-            console.log(response)
+            //console.log(response)
             if (response.success===true) {
                 setText("");
                 reset();

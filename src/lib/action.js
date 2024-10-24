@@ -54,7 +54,7 @@ export const raiseIssue = async (formData) => {
 
 export const fetchIssue = async (field, page = 1, sortType) => {
     try {
-        console.log(sortType)
+        //console.log(sortType)
         const res = await fetch(`${API}/api/doubts/${field}?page=${page}&sort=${sortType}`, { cache: 'no-cache' });
         if (!res.ok) {
             throw new Error(`Failed to fetch issues: ${res.status} ${res.statusText}`);
@@ -99,13 +99,13 @@ export const addVote = async (field, id, vote) => {
 }
 export async function compileCode(requestData) {
     try{
-        console.log("from the action",requestData)
+        //console.log("from the action",requestData)
         const res=await fetch(`${API}/api/compiler`,{
             method:"POST",
             body:JSON.stringify(requestData)
         })
         const response=await res.json();
-        console.log(response);
+        //console.log(response);
         return response;
     }
     catch(error){

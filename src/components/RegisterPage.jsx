@@ -29,11 +29,11 @@ const RegisterPage = () => {
                 if (result.error) {
                     console.error("Login failed:", result.error);
                 } else {
-                    console.log("Login successful");
+                    //console.log("Login successful");
                     
                 }
             }
-            console.log("Registration successful", response);
+            //console.log("Registration successful", response);
         } catch (error) {
             console.error("Registration error", error);
         }

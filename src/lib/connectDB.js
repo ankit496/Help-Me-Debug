@@ -5,12 +5,12 @@ const mongoUrl = process.env.MONGO_URI;
 const connectDB = () => {
     // Check if mongoose is already connected or connecting
     if (mongoose.connection.readyState === 1) {
-        console.log('Already connected to the database.');
+        //console.log('Already connected to the database.');
         return;
     }
 
     if (mongoose.connection.readyState === 2) {
-        console.log('Database connection is in progress.');
+        //console.log('Database connection is in progress.');
         return;
     }
 
@@ -23,7 +23,7 @@ const connectDB = () => {
 
     db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', () => {
-        console.log('Database connected');
+        //console.log('Database connected');
     });
 };
 export default connectDB;

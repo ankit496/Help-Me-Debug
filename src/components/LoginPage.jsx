@@ -31,7 +31,7 @@ const LoginPage = () => {
             if (result.error) {
                 console.error("Login failed:", result.error);
             } else {
-                console.log("Login successful");
+                //console.log("Login successful");
                 // Handle successful login (e.g., redirect or update state)
             }
         } catch (error) {
