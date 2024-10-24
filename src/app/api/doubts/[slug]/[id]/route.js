@@ -2,29 +2,33 @@ import connectDB from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 import Issue from "@/lib/models/Issue";
 import Comments from "@/lib/models/Comment";
-export const GET=async(request,{params})=>{
-    let {slug,id}=params;
+export const GET = async (request, { params }) => {
+    let { slug, id } = params;
     if (slug === 'Dsa') {
         slug = slug.split('').map(char => char.toUpperCase()).join('');
     }
-    try{
+    try {
         connectDB();
-        const posts=await Issue
-                    .find({type:slug,_id:id})
-                    .populate('userId')
-                    .populate({
-                        path:'comments',
-                        populate:{
-                            path:'userId',
-                            model:'User'
-                        }
-                    });
-        return NextResponse.json({success:true,posts,message:"Successfully fetched the post"});
-    }
-    catch(err){
+        const posts = await Issue
+            .find({ type: slug, _id: id })
+            .populate({
+                path: 'userId',
+                select: '-password' // Exclude the password field
+            })
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'userId',
+                    model: 'User',
+                    select: '-password' // Exclude the password field in comments
+                }
+            });
+        return NextResponse.json({ success: true, posts, message: "Successfully fetched the post" });
+    } catch (err) {
         throw new Error("Failed to fetch posts!");
     }
 }
+
 export const POST=async(request,{params})=>{
     try{
         const body=await request.json()

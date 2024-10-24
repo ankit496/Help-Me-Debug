@@ -35,7 +35,10 @@ export const GET = async (request, { params }) => {
         }
 
         const posts = await Issue.find({ type: slug })
-            .populate('userId')
+            .populate({
+                path: 'userId',
+                select: '-password' // Exclude the password field
+            })
             .sort(sortCriteria) // Apply sorting
             .skip(skip)
             .limit(limit);
@@ -54,3 +57,4 @@ export const GET = async (request, { params }) => {
         throw new Error("Failed to fetch posts!");
     }
 };
+
