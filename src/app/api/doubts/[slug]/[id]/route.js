@@ -1,0 +1,68 @@
+import connectDB from "@/lib/connectDB";
+import { NextResponse } from "next/server";
+import Issue from "@/lib/models/Issue";
+import Comments from "@/lib/models/Comment";
+export const GET=async(request,{params})=>{
+    let {slug,id}=params;
+    if (slug === 'Dsa') {
+        slug = slug.split('').map(char => char.toUpperCase()).join('');
+    }
+    try{
+        connectDB();
+        const posts=await Issue
+                    .find({type:slug,_id:id})
+                    .populate('userId')
+                    .populate({
+                        path:'comments',
+                        populate:{
+                            path:'userId',
+                            model:'User'
+                        }
+                    });
+        return NextResponse.json({success:true,posts,message:"Successfully fetched the post"});
+    }
+    catch(err){
+        throw new Error("Failed to fetch posts!");
+    }
+}
+export const POST=async(request,{params})=>{
+    try{
+        const body=await request.json()
+        const {userId,comment,id}=body;
+        const new_comment=await Comments.create({userId:userId,comment:comment});
+        const existingIssue=await Issue.findById(id);
+        if(!existingIssue.comments)
+            existingIssue.comments=[new_comment._id];
+        else
+            existingIssue.comments.push(new_comment._id);
+        existingIssue.save()
+        return NextResponse.json({success:true,message:"Successfully added comment"})
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
+export const PATCH = async (request, { params }) => {
+    try {
+        const body = await request.json();
+        const {id}=params
+        const {vote } = body;
+        connectDB();
+        const existingIssue = await Issue.findById(id);
+        if (!existingIssue) {
+            return NextResponse.json({ success: false, message: "Issue not found" }, { status: 404 });
+        }
+        const int_vote = parseInt(vote);
+        
+        // Update the votes
+        existingIssue.votes += int_vote;
+        
+        // Save the updated issue
+        await existingIssue.save();
+        
+        return NextResponse.json({ success: true, message: "Successfully updated vote" });
+    } catch (err) {
+        console.error("Error updating vote:", err);
+        return NextResponse.json({ success: false, message: "Failed to update vote" }, { status: 500 });
+    }
+};

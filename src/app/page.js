@@ -1,101 +1,67 @@
-import Image from "next/image";
-
+"use client";
+import Navbar from "@/components/Navbar";
+import ShootingStar from "@/components/ShootingStar";
+import Footer from "@/components/Footer";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 export default function Home() {
+  const {status}=useSession();
+  if(status=='loading')
+      return <>Loading...</>
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <ShootingStar />
+      <div className="relative z-10">
+        <Navbar />
+        <section className="h-screen flex flex-col justify-center items-center text-white">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-wrap p-4">Welcome to HelpMe-Debug</h1>
+          <p className="text-lg md:text-xl max-w-lg text-center mb-8">
+            Join the community to clear your doubts
+          </p>
+            <Link href="/raiseIssue" className="px-6 py-3 bg-blue-500 rounded-full text-white font-semibold hover:bg-blue-600 transition">
+            Get Started
+          </Link>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <section className="py-16 bg-[#000000f0] text-gray-300 -mt-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">What We Offer</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div
+                
+                className={`bg-gray-800 p-6 rounded-xl text-center transition}`}
+              >
+                <h3 className="text-2xl font-semibold mb-4">Ask Doubts Regarding Data Structures and Algorithm</h3>
+                <p>
+                  <b>HelpMe-Debug</b> is a dedicated platform designed to help students and professionals solve their Data Structures and Algorithms (DSA) challenges.
+                </p>
+              </div>
+
+              <div
+              
+                className={`bg-gray-800 p-6 rounded-xl text-center transition}`}
+              >
+                <h3 className="text-2xl font-semibold mb-4">Dive Deep Into Web Development</h3>
+                <p className="mt-4">
+                  Ultimate platform for developers looking to master the intricacies of modern web development.
+                </p>
+              </div>
+
+              <div
+
+                className={`bg-gray-800 p-6 rounded-xl text-center transition}`}
+              >
+                <h3 className="text-2xl font-semibold mb-4">Share Your Interview Experience</h3>
+                <p>
+                  Help job seekers prepare for interviews by sharing real-life experiences from various companies and roles.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </>
   );
 }
