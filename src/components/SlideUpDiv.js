@@ -25,7 +25,7 @@ export default function SlideUpCard() {
     >
       <h3 className="text-2xl font-semibold mb-4">Ask Doubts Regarding Data Structures and Algorithm</h3>
       <p>
-        <b>HelpMe-Debug</b> is a dedicated platform designed to help students and professionals solve their Data Structures and Algorithms (DSA) challenges. Whether you're preparing for coding interviews or enhancing your problem-solving skills, this community-driven website allows users to post their DSA-related questions and receive detailed, well-explained answers from peers and experts.
+        <b>HelpMe-Debug</b> is a dedicated platform designed to help students and professionals solve their Data Structures and Algorithms (DSA) challenges. Whether you&apos;re preparing for coding interviews or enhancing your problem-solving skills, this community-driven website allows users to post their DSA-related questions and receive detailed, well-explained answers from peers and experts.
       </p>
     </motion.div>
   );

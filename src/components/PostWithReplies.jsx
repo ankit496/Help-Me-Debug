@@ -35,7 +35,7 @@ return (
                         />
                     </div>
                     <div className="w-1 h-16 bg-gray-800 mx-16 -m-6"></div>
-                    {data.comments ? data.comments.map((comment) => <Comments data={comment} />) : <></>}
+                    {data.comments ? data.comments.map((comment,index) => <Comments key={index} data={comment} />) : <></>}
                     <h1 className="text-2xl p-1 mb-3 font-semibold">Add Comments</h1>
                     <div className="flex justify-center mb-4">
                         {session.user.image ? (
