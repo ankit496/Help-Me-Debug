@@ -16,26 +16,25 @@ const Page = () => {
   const [issueData, setIssueData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages,setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [sortType, setSortType] = useState("Sort by");
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       // try {
-        const response = await fetchIssue(doubts,currentPage,sortType);
-        if (response.success) {
-          setIssueData(response.posts);
-          setTotalPages(response.totalPages)
-        }
-        else{
-      // } catch (error) {
+      const response = await fetchIssue(doubts, currentPage, sortType);
+      if (response.success) {
+        setIssueData(response.posts);
+        setTotalPages(response.totalPages)
+      }
+      else {
         toast.error(response.error || 'Failed to load data');
       }
       setLoading(false);
     };
 
     getData();
-  }, [doubts,currentPage,sortType]);
+  }, [doubts, currentPage, sortType]);
 
   return (
     <>
@@ -52,7 +51,7 @@ const Page = () => {
             <span>{doubts.toUpperCase()}</span>
           </h2>
           <div className=''>
-          <SortComponent sortType={sortType} setSortType={setSortType}></SortComponent>
+            <SortComponent sortType={sortType} setSortType={setSortType}></SortComponent>
           </div>
           {/* Main Content */}
           <div className="mt-8">
@@ -75,9 +74,9 @@ const Page = () => {
             )}
           </div>
         </div>
-      <div className='flex justify-center p-2'>
-            <Pagination loading={loading} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}></Pagination>
-          </div>
+        <div className='flex justify-center p-2'>
+          <Pagination loading={loading} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}></Pagination>
+        </div>
       </div>
       <Footer />
     </>

@@ -10,7 +10,7 @@ const connectDB = () => {
     }
 
     if (mongoose.connection.readyState === 2) {
-        //console.log('Database connection is in progress.');
+        
         return;
     }
 
