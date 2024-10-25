@@ -54,11 +54,9 @@ export const raiseIssue = async (formData) => {
 
 export const fetchIssue = async (field, page = 1, sortType) => {
     // try {
-        const res = await fetch(`${API}/api/doubts/${field}?page=${page}&sort=${sortType}`, { cache: 'no-cache' });
-        const data = await res.json();
-        if(data.success==false)
-            return data
-        return data;
+    const res = await fetch(`${API}/api/doubts/${field}?page=${page}&sort=${sortType}`, { cache: 'no-cache' });
+    const data = await res.json();
+    return data;
 };
 
 export const fetchIssuebyId = async (field, id) => {
@@ -79,31 +77,21 @@ export const addComment = async (userId, comment, field, id) => {
     return response;
 }
 export const addVote = async (field, id, vote) => {
-    try {
-        const data = { vote };
-        const res = await fetch(`${API}/api/doubts/${field}/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify(data)
-        }, { cache: 'no-cache' });
-        const response = await res.json();
-        return response;
-    }
-    catch (error) {
-        throw new Error(error);
-    }
+
+    const data = { vote };
+    const res = await fetch(`${API}/api/doubts/${field}/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(data)
+    }, { cache: 'no-cache' });
+    const response = await res.json();
+    return response;
+
 }
 export async function compileCode(requestData) {
-    try{
-        //console.log("from the action",requestData)
-        const res=await fetch(`${API}/api/compiler`,{
-            method:"POST",
-            body:JSON.stringify(requestData)
-        })
-        const response=await res.json();
-        //console.log(response);
-        return response;
-    }
-    catch(error){
-        throw new Error(error);
-    }
+    const res = await fetch(`${API}/api/compiler`, {
+        method: "POST",
+        body: JSON.stringify(requestData)
+    })
+    const response = await res.json();
+    return response;
 }

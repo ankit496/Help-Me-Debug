@@ -4,10 +4,11 @@ import ShootingStar from "@/components/ShootingStar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import LoadingPage from "@/components/LoadingPage";
 export default function Home() {
   const {status}=useSession();
   if(status=='loading')
-      return <>Loading...</>
+      return <LoadingPage/>
   return (
     <>
       <ShootingStar />

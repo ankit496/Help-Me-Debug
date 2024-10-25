@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { Editor } from "@monaco-editor/react";
 import {
@@ -20,11 +21,11 @@ import { useRouter } from "next/navigation";
 const Compiler = () => {
   const [language, setLanguage] = useState("javascript");
   const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState("Output of your code.....");
   const [code, setCode] = useState(CODE_SNIPPETS[language]);
   const [loading, setLoading] = useState(false); // Loading state
   const [error, setError] = useState(""); // Error state
-  const router=useRouter();
+  const router = useRouter();
   const escapeString = (str) => {
     return str
       .replace(/\\/g, '\\\\')
@@ -50,21 +51,20 @@ const Compiler = () => {
       stdin: input
     };
 
-    try {
-      setLoading(true); // Set loading to true
-      setError(""); // Clear previous errors
-      const result = await compileCode(requestData);
-      if (result.run.stderr) {
-        setError(result.run.stderr)
-      }
-      setOutput(result.run.stdout);
 
-    } catch (error) {
-      console.error("Compilation Error:", error);
-      setError("Compilation failed. Please check your code."); // Set error message
-    } finally {
-      setLoading(false); // Set loading to false
+    setLoading(true); // Set loading to true
+    setError(""); // Clear previous errors
+    const result = await compileCode(requestData);
+    if (!result.success)
+      setError(result.error)
+    else{
+      if(result.data.run.stderr)
+        setError(result.data.run.stderr)
+      else
+        setOutput(result.data.run.stdout);
     }
+    setLoading(false); // Set loading to false
+
   }
 
   const handleRun = () => {

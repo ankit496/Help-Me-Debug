@@ -6,33 +6,33 @@ import { raiseIssue } from '@/lib/action';
 import { useSession, signOut } from 'next-auth/react'
 import { toast, ToastContainer } from 'react-toastify';
 import Router, { useRouter } from 'next/navigation';
+import LoadingPage from './LoadingPage';
 
 function IssueComponent() {
-    const { register, handleSubmit, formState: { errors },reset, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
     const [text, setText] = useState('');
     const { data: session, status } = useSession();
     const router = useRouter();
     const [selectedType, setSelectedType] = useState('Web');
     const onSubmit = async (data) => {
-        
+
         data.issue = text
         data.userId = session.user.id
-        try {
-            const response = await raiseIssue(data);
-            //console.log(response)
-            if (response.success===true) {
-                setText("");
-                reset();
-                toast.success("Issue raised successfully!");
-            }
+
+        const response = await raiseIssue(data);
+        //console.log(response)
+        if (response.success === true) {
+            setText("");
+            reset();
+            toast.success("Issue raised successfully!");
         }
-        catch (error) {
-            toast.error("Failed to raise issue.");
+        else {
+            toast.error(response.error);
         }
     };
 
-    if(status=='loading'){
-        return <>Loading...</>
+    if (status == 'loading') {
+        return <LoadingPage/>
     }
     return (
         <>

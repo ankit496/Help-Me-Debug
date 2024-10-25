@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { HiExclamationCircle } from "react-icons/hi";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const LoginPage = () => {
     const {
         register,
@@ -29,13 +30,10 @@ const LoginPage = () => {
             });
 
             if (result.error) {
-                console.error("Login failed:", result.error);
-            } else {
-                //console.log("Login successful");
-                // Handle successful login (e.g., redirect or update state)
-            }
+                toast.error("Login failed:", result.error);
+            } 
         } catch (error) {
-            console.error("Login error:", error);
+            toast.error(error);
         }
     };
 

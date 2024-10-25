@@ -1,3 +1,4 @@
+"use server"
 import connectDB from "@/lib/connectDB";
 import Issue from "@/lib/models/Issue";
 import { NextResponse } from "next/server";
@@ -11,7 +12,6 @@ export const GET = async (request, { params }) => {
 
     // Calculate the skip value
     const skip = (page - 1) * limit;
-
     try {
         connectDB();
         if (slug === 'Dsa') {
@@ -44,7 +44,7 @@ export const GET = async (request, { params }) => {
             .limit(limit);
 
         const totalPosts = await Issue.countDocuments({ type: slug });
-
+        console.log(totalPosts)
         return NextResponse.json({
             success: true,
             posts,

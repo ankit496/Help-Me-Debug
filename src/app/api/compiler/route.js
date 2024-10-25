@@ -13,14 +13,10 @@ export const POST = async (request, { params }) => {
             body: JSON.stringify(body)  
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
         const data = await response.json();  // Parse the JSON response
-        return new Response(JSON.stringify(data), { status: 200 });  
+        return new Response(JSON.stringify({data,success:true}));  
     } catch (error) {
         // console.error("Error:", error);
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });  // Return error with a 500 status
+        return new Response(JSON.stringify({ error: error.message,success:false }));  // Return error with a 500 status
     }
 };

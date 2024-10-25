@@ -21,7 +21,6 @@ const Page = () => {
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      // try {
       const response = await fetchIssue(doubts, currentPage, sortType);
       if (response.success) {
         setIssueData(response.posts);

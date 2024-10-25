@@ -25,7 +25,7 @@ export const GET = async (request, { params }) => {
             });
         return NextResponse.json({ success: true, posts, message: "Successfully fetched the post" });
     } catch (err) {
-        throw new Error(err);
+        return NextResponse.json({success:false,error:err.message})
     }
 }
 
@@ -43,7 +43,7 @@ export const POST=async(request,{params})=>{
         return NextResponse.json({success:true,message:"Successfully added comment"})
     }
     catch(err){
-        throw new Error(err);
+        return NextResponse.json({success:false,error:err.message})
     }
 }
 export const PATCH = async (request, { params }) => {
@@ -66,7 +66,6 @@ export const PATCH = async (request, { params }) => {
         
         return NextResponse.json({ success: true, message: "Successfully updated vote" });
     } catch (err) {
-        console.error("Error updating vote:", err);
-        return NextResponse.json({ success: false, message: "Failed to update vote" }, { status: 500 });
+        return NextResponse.json({ success: false, error:err.message });
     }
 };
