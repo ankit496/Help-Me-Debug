@@ -54,7 +54,10 @@ export const GET = async (request, { params }) => {
             message: "Successfully fetched the posts",
         });
     } catch (err) {
-        return {error:err};
+        return NextResponse.json({
+            success:false,
+            error:err.message
+        });
     }
 };
 

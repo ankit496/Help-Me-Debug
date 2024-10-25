@@ -6,20 +6,19 @@ export const POST = async (request, { params }) => {
 
     try {
         const response = await fetch(endpoint, {
-            method: 'POST',  // Set the request method to POST
+            method: 'POST',  
             headers: {
-                'Content-Type': 'application/json',  // Specify the content type
+                'Content-Type': 'application/json',  
             },
-            body: JSON.stringify(body)  // Convert the request data to a JSON string
+            body: JSON.stringify(body)  
         });
 
-        // Check if the response is OK (status in the range 200-299)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();  // Parse the JSON response
-        return new Response(JSON.stringify(data), { status: 200 });  // Return the response with a 200 status
+        return new Response(JSON.stringify(data), { status: 200 });  
     } catch (error) {
         // console.error("Error:", error);
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });  // Return error with a 500 status

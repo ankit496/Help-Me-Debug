@@ -21,14 +21,15 @@ const Page = () => {
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      try {
+      // try {
         const response = await fetchIssue(doubts,currentPage,sortType);
         if (response.success) {
           setIssueData(response.posts);
           setTotalPages(response.totalPages)
         }
-      } catch (error) {
-        toast.error(error.message || 'Failed to load data');
+        else{
+      // } catch (error) {
+        toast.error(response.error || 'Failed to load data');
       }
       setLoading(false);
     };

@@ -20,7 +20,7 @@ const login=async(credentials)=>{
         return user
     }
     catch(error){
-        return {error}
+        return {error:error.message}
     }
 }
 const handler=NextAuth({
@@ -41,7 +41,7 @@ const handler=NextAuth({
                     return user;
                 }
                 catch(error){
-                    return {error};
+                    return {error:error.message};
                 }
             }
         })
@@ -65,7 +65,7 @@ const handler=NextAuth({
                 }
             }
             catch(error){
-                return {error}
+                return {error:error.message}
             }
             return true;
         },
