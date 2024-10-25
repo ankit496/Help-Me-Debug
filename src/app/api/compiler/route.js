@@ -2,8 +2,7 @@ export const POST = async (request, { params }) => {
     const endpoint = "https://emkc.org/api/v2/piston/execute";
 
     // Get the request body as JSON
-    const body = await request.json();  // Use await to resolve the promise
-    //console.log("Request Body:", body); // Log the request body for debugging
+    const body = await request.json();  
 
     try {
         const response = await fetch(endpoint, {

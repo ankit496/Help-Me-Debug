@@ -54,15 +54,11 @@ export const raiseIssue = async (formData) => {
 
 export const fetchIssue = async (field, page = 1, sortType) => {
     try {
-        //console.log(sortType)
         const res = await fetch(`${API}/api/doubts/${field}?page=${page}&sort=${sortType}`, { cache: 'no-cache' });
-        if (!res.ok) {
-            throw new Error(`Failed to fetch issues: ${res.status} ${res.statusText}`);
-        }
         const data = await res.json();
         return data;
     } catch (error) {
-        throw new Error(error);
+        return {error}
     }
 };
 

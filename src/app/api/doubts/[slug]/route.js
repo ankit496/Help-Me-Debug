@@ -54,7 +54,7 @@ export const GET = async (request, { params }) => {
             message: "Successfully fetched the posts",
         });
     } catch (err) {
-        throw new Error(err);
+        return {error:err};
     }
 };
 

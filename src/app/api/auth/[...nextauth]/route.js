@@ -11,16 +11,16 @@ const login=async(credentials)=>{
     try{
         const user=await User.findOne({email:credentials.email});
         if(!user)
-                throw new Error("Wrong Credentials");
+               return {error:"Wrong credentials"};
         const isValidPassword=await bcrypt.compare(
             credentials.password,user.password
         )
         if(!isValidPassword)
-            throw new Error("Wrong Credentials");
+            return {error:"Wrong credentials"}
         return user
     }
     catch(error){
-        throw new Error(error)
+        return {error}
     }
 }
 const handler=NextAuth({
@@ -41,7 +41,7 @@ const handler=NextAuth({
                     return user;
                 }
                 catch(error){
-                    throw new Error(error)
+                    return {error};
                 }
             }
         })
@@ -65,7 +65,7 @@ const handler=NextAuth({
                 }
             }
             catch(error){
-                throw new Error(error)
+                return {error}
             }
             return true;
         },
