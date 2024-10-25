@@ -20,7 +20,6 @@ const Page = () => {
   const [sortType, setSortType] = useState("Sort by");
   useEffect(() => {
     const getData = async () => {
-      "use server"
       setLoading(true);
       // try {
       const response = await fetchIssue(doubts, currentPage, sortType);
