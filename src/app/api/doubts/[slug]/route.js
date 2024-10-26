@@ -56,7 +56,7 @@ export const GET = async (request, { params }) => {
     } catch (err) {
         return NextResponse.json({
             success:false,
-            error:"Failed to fetch data"
+            error:err.message
         });
     }
 };
