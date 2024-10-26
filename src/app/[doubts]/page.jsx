@@ -53,7 +53,7 @@ const Page = () => {
             <SortComponent sortType={sortType} setSortType={setSortType}></SortComponent>
           </div>
           {/* Main Content */}
-          <div className="mt-8 w-4/5">
+          <div className="mt-8 mx-auto">
             {loading ? (
               <div className="flex justify-center items-center">
                 {/* Add a spinner for loading */}
