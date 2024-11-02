@@ -1,3 +1,4 @@
+"use client"
 import { Editor } from "primereact/editor";
 import { useState } from "react";
 import Image from "next/image";
@@ -6,21 +7,25 @@ import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { addVote } from "@/lib/action";
 import { FaBug } from "react-icons/fa6";
-
-const Posts = ({ data }) => {
+import EditModal from "./EditModal";
+import { useSession } from "next-auth/react";
+import DeleteModal from "./DeleteModal";
+const Posts = ({ data,setReRender }) => {
   const router = useRouter();
   const { doubts, id } = useParams();
   const [currentVotes, setCurrentVotes] = useState(data.votes ? data.votes : 0);
-
+  const { data: session } = useSession();
+  const [clicked, setClicked] = useState(false);
   const Vote = async (bias) => {
+    setClicked(true);
     try {
       const response = await addVote(doubts, data._id, bias);
       if (response.success) setCurrentVotes((prev) => prev + bias);
     } catch (error) {
       toast.error("Failed to vote.");
     }
+    setClicked(false);
   };
-
   return (
     <>
       <div
@@ -42,6 +47,12 @@ const Posts = ({ data }) => {
                 </span>
               )}
             </div>
+            {session && session.user.id == data.userId._id && <div className="flex space-x-2 mt-3 items-center text-lg justify-center px-2">
+              {/* <div><FaEdit /></div> */}
+              <EditModal post={data} field={doubts} setReRender={setReRender}></EditModal>
+              <DeleteModal postId={id} field={doubts} />
+            </div>
+            }
           </div>
           <hr className="w-full mb-4 h-0.5 border-0 bg-gray-600 outline-none" />
           <div className="flex items-start">
@@ -61,13 +72,18 @@ const Posts = ({ data }) => {
 
               <div className="flex flex-col items-center gap-2 mt-4 bg-gray-800 rounded-xl p-2">
                 <BiUpvote
-                  className="text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200"
-                  onClick={() => Vote(1)}
+                  aria-disabled={clicked}
+                  className={`cursor-pointer transition-colors duration-200 ${clicked ? 'text-gray-400' : 'text-green-500 hover:text-green-700'
+                    }`}
+                  onClick={() => !clicked && Vote(1)}
                 />
+
                 <span className="text-gray-200 font-semibold">{currentVotes}</span>
                 <BiDownvote
-                  className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors duration-200"
-                  onClick={() => Vote(-1)}
+                  aria-disabled={clicked}
+                  className={`cursor-pointer transition-colors duration-200 ${clicked ? 'text-gray-400' : 'text-green-500 hover:text-green-700'
+                    }`}
+                  onClick={() => !clicked && Vote(-1)}
                 />
               </div>
             </div>

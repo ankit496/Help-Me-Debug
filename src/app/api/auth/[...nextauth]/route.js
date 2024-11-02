@@ -50,8 +50,7 @@ const handler=NextAuth({
         async signIn({user,account,profile}){
             connectDB()
             try{
-                const findUser=await User.findOne({email:user.email})
-                //console.log(user)
+                const findUser=await User.findOne({email:user.email});
                 if(!findUser){
                     const newUser=await User.create({
                         email:user.email,
@@ -67,7 +66,7 @@ const handler=NextAuth({
             catch(error){
                 return {error:error.message}
             }
-            return true;
+            return user;
         },
         ...authConfig.callbacks
     },

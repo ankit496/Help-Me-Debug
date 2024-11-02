@@ -50,22 +50,38 @@ export const PATCH = async (request, { params }) => {
     try {
         const body = await request.json();
         const {id}=params
-        const {vote } = body;
+        const {vote,status,title,content } = body;
         connectDB();
         const existingIssue = await Issue.findById(id);
         if (!existingIssue) {
             return NextResponse.json({ success: false, message: "Issue not found" }, { status: 404 });
         }
-        const int_vote = parseInt(vote);
-        
-        // Update the votes
-        existingIssue.votes += int_vote;
-        
-        // Save the updated issue
+        if(vote){
+            const int_vote = parseInt(vote);
+            existingIssue.votes += int_vote;
+        }
+        if(title)
+            existingIssue.title=title;
+        if(status)
+            existingIssue.status=status;
+        if(content)
+            existingIssue.content=content;
         await existingIssue.save();
         
-        return NextResponse.json({ success: true, message: "Successfully updated vote" });
+        return NextResponse.json({ success: true, message: "Successfully updated" });
     } catch (err) {
         return NextResponse.json({ success: false, error:err.message });
     }
 };
+
+export const DELETE=async(request,{params})=>{
+    try{
+        const {field,id}=params;
+        connectDB();
+        await Issue.findByIdAndDelete(id);
+        return NextResponse.json({success:true,message:"Successfully deleted issue"});
+    }
+    catch(err){
+        return NextResponse.json({success:false,error:err.message})
+    }
+}

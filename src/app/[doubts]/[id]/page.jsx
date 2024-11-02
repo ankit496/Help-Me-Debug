@@ -1,7 +1,7 @@
 "use client"
 import PostWithReplies from "@/components/PostWithReplies";
 import { fetchIssuebyId } from "@/lib/action";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,6 +12,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [issueData, setIssueData] = useState();
   const [reRender, setReRender] = useState(0);
+  const router = useRouter();
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -20,7 +21,8 @@ const Page = () => {
         setIssueData(response.posts);
       }
       else {
-        toast.error(response.error);
+        router.push(`/${doubts}`)
+        // toast.error(response.error);
       }
       setLoading(false);
     };
@@ -33,16 +35,19 @@ const Page = () => {
       >
         <Navbar></Navbar>
         {loading ? (
-          <>
-            <div className="min-h-screen flex items-center justify-center">
-              <div className="items-center w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          </>
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
         ) : (
-          issueData.map((data, index) => (
-            <PostWithReplies key={index} data={data} setReRender={setReRender} />
-          ))
+          issueData ? (
+            issueData.map((data, index) => (
+              <PostWithReplies key={index} data={data} setReRender={setReRender} />
+            ))
+          ) : (
+            <p>No data to show</p>
+          )
         )}
+
         <Footer></Footer>
       </div>
     </div>

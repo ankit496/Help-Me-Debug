@@ -82,7 +82,7 @@ const Comments = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="w-1 h-16 bg-gray-800 mx-16 -m-6"></div>
+      
     </>
   );
 };

@@ -77,7 +77,6 @@ export const addComment = async (userId, comment, field, id) => {
     return response;
 }
 export const addVote = async (field, id, vote) => {
-
     const data = { vote };
     const res = await fetch(`${API}/api/doubts/${field}/${id}`, {
         method: "PATCH",
@@ -86,6 +85,22 @@ export const addVote = async (field, id, vote) => {
     const response = await res.json();
     return response;
 
+}
+export const editPost=async(field,id,status,title,content)=>{
+    const data={status,title,content};
+    const res=await fetch(`${API}/api/doubts/${field}/${id}`,{
+        method:"PATCH",
+        body:JSON.stringify(data)
+    },{cache:"no-cache"});
+    const response=await res.json();
+    return response;
+}
+export const deletePost = async (field, postId) => {
+    const res = await fetch(`${API}/api/doubts/${field}/${postId}`, {
+        method: "DELETE"
+    }, { cache: 'no-cache' });
+    const response = await res.json();
+    return response;
 }
 export async function compileCode(requestData) {
     const res = await fetch(`${API}/api/compiler`, {
