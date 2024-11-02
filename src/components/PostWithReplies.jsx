@@ -35,7 +35,7 @@ const PostWithReplies = ({ data, setReRender }) => {
                     </div>
                     <div className="w-1 h-16 bg-gray-800 mx-16 -m-6"></div>
                     {data.comments ? data.comments.map((comment, index) => <>
-                        <Comments key={index} data={comment} />{index!=data.comments.length-1 && <div className="w-1 h-16 bg-gray-800 mx-16 -m-6"></div>}</>) : <></>}
+                        <Comments key={index} data={comment} />{index != data.comments.length - 1 && <div className="w-1 h-16 bg-gray-800 mx-16 -m-6"></div>}</>) : <></>}
                     {data.status == 'Pending' && <> <h1 className="text-2xl p-1 mb-3 font-semibold">Add Comments</h1>
                         <div className="flex justify-center mb-4">
                             {session && session.user.image ? (
@@ -53,7 +53,7 @@ const PostWithReplies = ({ data, setReRender }) => {
                             <div className="w-full rounded-xl">
                                 <Editor text={text} setText={setText}></Editor>
                                 <div className="flex justify-end mt-2">
-                                    <button onClick={() => AddComment(session.user.id, text, doubts, id)} className="bg-green-500 text-gray-200 font-semibold p-2 mt-1 rounded-xl mb-2 pl-2 pr-2">Comment</button>
+                                    {session ? <button onClick={() => AddComment(session.user.id, text, doubts, id)} className="bg-green-500 text-gray-200 font-semibold p-2 mt-1 rounded-xl mb-2 pl-2 pr-2">Comment</button> : <button disabled={true} className='bg-red-500 text-gray-200 font-semibold p-2 mt-1 rounded-xl mb-2 '>Login to comment</button>}
                                 </div>
                             </div>
                         </div></>}

@@ -22,7 +22,7 @@ export const GET = async (request, { params }) => {
         let sortCriteria = {};
         switch (sortParam) {
             case 'Most popular':
-                sortCriteria = { createdAt: -1 }; // Sort by newest
+                sortCriteria = { votes: -1 }; // Sort by newest
                 break;
             case 'Most discussed':
                 sortCriteria = { comments: -1 }; // Sort by the number of comments (array length)
@@ -31,7 +31,7 @@ export const GET = async (request, { params }) => {
                 sortCriteria = { votes: -1 }; // Sort by the number of upvotes
                 break;
             default:
-                sortCriteria = { createdAt: -1 }; // Default to "Most popular"
+                sortCriteria = { votes: -1 }; // Default to "Most popular"
         }
 
         const posts = await Issue.find({ type: slug })

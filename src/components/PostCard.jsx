@@ -6,11 +6,17 @@ import { IoIosLink } from "react-icons/io";
 import { toast, ToastContainer } from 'react-toastify';
 import { addVote } from "@/lib/action";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 const PostCard = ({ data }) => {
   const router = useRouter();
   const { doubts, id } = useParams();
   const [currentVotes,setCurrentVotes]=useState(data.votes?data.votes:0);
+  const {data:session}=useSession();
   const Vote=async(bias)=>{
+    if(!session){
+      toast.error("Login to vote")
+      return;
+    }
     try{
       const response=await addVote(doubts,data._id,bias);
       if(response.success)

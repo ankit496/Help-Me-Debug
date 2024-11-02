@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="bg-gray-900 text-white p-4">
             <div className='flex items-center justify-evenly'>
-                <div className="text-center text-gray-400">&copy; 2024 Your Company. All rights reserved.</div>
+                <div className="text-center text-gray-400">&copy; 2024 HelpMe-Debug</div>
                 <div className="flex space-x-4">
                     <a href="#" className="hover:text-gray-300">
                         <FaFacebookF />

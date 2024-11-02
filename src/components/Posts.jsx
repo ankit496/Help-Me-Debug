@@ -17,6 +17,10 @@ const Posts = ({ data,setReRender }) => {
   const { data: session } = useSession();
   const [clicked, setClicked] = useState(false);
   const Vote = async (bias) => {
+    if(!session){
+      toast.error("Login to vote")
+      return;
+    }
     setClicked(true);
     try {
       const response = await addVote(doubts, data._id, bias);

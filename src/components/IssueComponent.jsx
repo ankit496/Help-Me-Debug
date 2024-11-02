@@ -18,7 +18,6 @@ function IssueComponent() {
 
         data.issue = text
         data.userId = session.user.id
-
         const response = await raiseIssue(data);
         //console.log(response)
         if (response.success === true) {
@@ -70,12 +69,13 @@ function IssueComponent() {
                         </div>
                     </div>
                     <div className="flex justify-end mt-2">
-                        <button
+                        {session?<button
                             className={`${errors.issueTitle || !text ? 'd-none bg-red-500 text-white' : 'bg-green-500'} text-gray-200 font-semibold p-2 mt-1 rounded-xl mb-2 pl-2 pr-2`}
                             disabled={errors.issueTitle || !text}
                         >
                             Comment
-                        </button>
+                        </button>:<button disabled={true} className='bg-red-500 text-gray-200 font-semibold p-2 mt-1 rounded-xl mb-2 '>Login to comment</button>
+                        }
                     </div>
                 </form>
             </div>
