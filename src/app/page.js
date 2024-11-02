@@ -1,18 +1,19 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import ShootingStar from "@/components/ShootingStar";
+// import ShootingStar from "@/components/ShootingStar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoadingPage from "@/components/LoadingPage";
+import Starfield from "@/components/Background/Starfield";
 export default function Home() {
   const {status}=useSession();
   if(status=='loading')
       return <LoadingPage/>
   return (
     <>
-      <ShootingStar />
       <div className="relative z-10">
+        <Starfield></Starfield>
         <Navbar />
         <section className="h-screen flex flex-col justify-center items-center text-white">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-wrap p-4">Welcome to HelpMe-Debug</h1>
