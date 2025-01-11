@@ -10,19 +10,27 @@ import { useSession } from "next-auth/react";
 const PostCard = ({ data }) => {
   const router = useRouter();
   const { doubts, id } = useParams();
-  const [currentVotes,setCurrentVotes]=useState(data.votes?data.votes:0);
-  const {data:session}=useSession();
-  const Vote=async(bias)=>{
-    if(!session){
+  const [currentVotes, setCurrentVotes] = useState(data.votes ? data.votes : 0);
+  const { data: session } = useSession();
+  const date = new Date(data.createdAt);
+  let formattedDate = `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getFullYear()}`;
+
+  if(!data.createdAt){
+    formattedDate='';
+  }
+  const Vote = async (bias) => {
+    if (!session) {
       toast.error("Login to vote")
       return;
     }
-    try{
-      const response=await addVote(doubts,data._id,bias);
-      if(response.success)
-          setCurrentVotes((prev)=>prev+=bias);
+    try {
+      const response = await addVote(doubts, data._id, bias);
+      if (response.success)
+        setCurrentVotes((prev) => prev += bias);
     }
-    catch(error){
+    catch (error) {
       toast.error("Failed to vote.");
     }
   }
@@ -32,17 +40,16 @@ const PostCard = ({ data }) => {
     >
       <div className="flex flex-col space-y-4">
         {/* Post Title and Status */}
-          <div className="hover:cursor-pointer flex items-center justify-between flex-wrap" onClick={() => !id && router.push(`${doubts}/${data._id}`)}>
-            <div className="flex items-center gap-1">
-          <IoIosLink className="mt-1" />
-          <h1 className="text-lg sm:text-xl font-bold text-white truncate">
-            {data.title.substr(0, 30)}
-          </h1>
+        <div className="hover:cursor-pointer flex items-center justify-between flex-wrap" onClick={() => !id && router.push(`${doubts}/${data._id}`)}>
+          <div className="flex items-center gap-1">
+            <IoIosLink className="mt-1" />
+            <h1 className="text-lg sm:text-xl font-bold text-white truncate">
+              {data.title.substr(0, 30)}
+            </h1>
           </div>
           <span
-            className={`text-sm ml-3 pl-2 pr-2 py-1 rounded-xl font-medium ${
-              data.status === "Pending" ? "bg-blue-600 text-white" : "bg-green-600 text-gray-200"
-            } whitespace-nowrap`}
+            className={`text-sm ml-3 pl-2 pr-2 py-1 rounded-xl font-medium ${data.status === "Pending" ? "bg-blue-600 text-white" : "bg-green-600 text-gray-200"
+              } whitespace-nowrap`}
           >
             {data.status}
           </span>
@@ -68,9 +75,9 @@ const PostCard = ({ data }) => {
             )}
             {/* Vote Section */}
             <div className="flex flex-col items-center gap-1 mt-4">
-              <BiUpvote className="text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200 w-6 h-6" onClick={()=>Vote(1)} />
+              <BiUpvote className="text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200 w-6 h-6" onClick={() => Vote(1)} />
               <span className="text-gray-200 font-semibold">{currentVotes}</span>
-              <BiDownvote className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors duration-200 w-6 h-6" onClick={()=>Vote(-1)}/>
+              <BiDownvote className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors duration-200 w-6 h-6" onClick={() => Vote(-1)} />
             </div>
           </div>
 
@@ -81,7 +88,7 @@ const PostCard = ({ data }) => {
                 {data.userId.username}
               </h3>
               <span className="text-xs sm:text-sm text-gray-400 whitespace-nowrap">
-                {data.createdAt}
+                {formattedDate}
               </span>
             </div>
             <div className="mt-2">
