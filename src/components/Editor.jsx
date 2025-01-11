@@ -59,6 +59,8 @@ export default function Custom_Editor({text,setText}) {
                     color: "white",
                     fontSize: "14px",
                     minHeight: "140px",
+                    maxHeight:"200px",
+                    overflow: "auto",
                     whiteSpace: "pre-wrap", // This will ensure newlines and spaces are respected
                     overflowWrap: "break-word", // Ensures long words are wrapped
                     wordBreak: "break-word", // Breaks words that are too long

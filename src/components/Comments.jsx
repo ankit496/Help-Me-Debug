@@ -13,7 +13,7 @@ const Comments = ({ data }) => {
 
   const Vote = async (bias) => {
     try {
-      const response = await addVote(doubts, data._id, bias);
+      const response = await addVote(doubts, data, bias);
       if (response.success) setCurrentVotes((prev) => prev + bias);
     } catch (error) {
       toast.error("Failed to vote.");
@@ -41,7 +41,7 @@ const Comments = ({ data }) => {
               <div className="w-8 h-8 rounded-full bg-black"></div>
             )}
             {/* Vote Section */}
-            <div className="flex flex-col items-center gap-1 mt-4 bg-gray-800 rounded-xl p-1">
+            {/* <div className="flex flex-col items-center gap-1 mt-4 bg-gray-800 rounded-xl p-1">
               <BiUpvote
                 className="text-gray-400 hover:text-green-500 cursor-pointer transition-colors duration-200 w-6 h-6"
                 onClick={() => Vote(1)}
@@ -51,7 +51,7 @@ const Comments = ({ data }) => {
                 className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors duration-200 w-6 h-6"
                 onClick={() => Vote(-1)}
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="w-full">

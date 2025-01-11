@@ -87,7 +87,8 @@ export const addVote = async (field, id, vote) => {
 
 }
 export const editPost=async(field,id,status,title,content)=>{
-    const data={status,title,content};
+    const vote=null;
+    const data={vote,status,title,content};
     const res=await fetch(`${API}/api/doubts/${field}/${id}`,{
         method:"PATCH",
         body:JSON.stringify(data)

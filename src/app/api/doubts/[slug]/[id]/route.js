@@ -51,6 +51,7 @@ export const PATCH = async (request, { params }) => {
         const body = await request.json();
         const {id}=params
         const {vote,status,title,content } = body;
+        console.log(vote,status,title,content)
         connectDB();
         const existingIssue = await Issue.findById(id);
         if (!existingIssue) {
@@ -65,7 +66,7 @@ export const PATCH = async (request, { params }) => {
         if(status)
             existingIssue.status=status;
         if(content)
-            existingIssue.content=content;
+            existingIssue.issue=content;
         await existingIssue.save();
         
         return NextResponse.json({ success: true, message: "Successfully updated" });
