@@ -13,25 +13,26 @@ export const register = async (formData) => {
         return { error: "Passwords do not match" };
     }
 
-    await connectDB(); // Ensure you're awaiting the DB connection
+    connectDB(); // Ensure you're awaiting the DB connection
     try {
+        if(!!User){
+            const user = await User.findOne({ email });
+            if (user) {
+                return { error: "Email already exists" };
+            }
 
-        const user = await User.findOne({ email });
-        if (user) {
-            return { error: "Email already exists" };
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            const newUser = new User({
+                username: username,
+                email,
+                password: hashedPassword,
+            });
+
+            await newUser.save();
+            return { success: true };
         }
-
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const newUser = new User({
-            username: username,
-            email,
-            password: hashedPassword,
-        });
-
-        await newUser.save();
-        return { success: true };
     } catch (err) {
         // console.error("Error saving user:", err);
         return { error: "Something went wrong!" };
