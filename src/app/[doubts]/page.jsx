@@ -37,7 +37,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-gray-900 to-gray-800 min-h-screen text-gray-300">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 min-h-screen text-gray-300 max-w-5/6">
         <Navbar />
         <div className="container mx-auto p-4">
           {/* Header Section */}
@@ -49,11 +49,11 @@ const Page = () => {
             )}
             <span>{doubts.toUpperCase()}</span>
           </h2>
-          <div className=''>
+          <div className='pl-8'>
             <SortComponent sortType={sortType} setSortType={setSortType}></SortComponent>
           </div>
           {/* Main Content */}
-          <div className="mt-8 mx-auto">
+          <div className="mt-8 mx-auto p-8">
             {loading ? (
               <div className="flex justify-center items-center">
                 {/* Add a spinner for loading */}

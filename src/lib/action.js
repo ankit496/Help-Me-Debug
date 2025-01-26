@@ -13,7 +13,7 @@ export const register = async (formData) => {
         return { error: "Passwords do not match" };
     }
 
-    connectDB(); // Ensure you're awaiting the DB connection
+    await connectDB(); // Ensure you're awaiting the DB connection
     try {
 
         const user = await User.findOne({ email });
